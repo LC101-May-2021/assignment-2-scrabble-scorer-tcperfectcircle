@@ -41,7 +41,7 @@ function initialPrompt() {
 };
 
 
-  let simpleScore = function (word) {
+let simpleScore = function (word) {
   return word.length;
   };
 
@@ -65,7 +65,7 @@ let vowelBonusScore = function(word){
 
 
 let scrabbleScore = function (word){
-  word = word.toUpperCase();
+  word = word.toLowerCase();
   let letterPoints = 0;
   for (let i = 0; i < word.length; i++){
     letterPoints += newPointStructure[word[i]];
@@ -96,13 +96,12 @@ function scorerPrompt() {
   for (let i = 0; i < scoringAlgorithms.length; i++){
     let whichScore = scoringAlgorithms[i];
     console.log(i + '-' + whichScore.name + whichScore.description)
-  };
+  }
   let choice = Number (input.question(`Enter 0, 1, or 2: `));
   // let spl="~`!#$%^&*+=-[]\\\';,/{}|\":<>?";
-  // while (choice < 0 || choice > 2 || String (choice).includes(spl)) {
+  // while (choice < 0 || choice > 2 || choice.includes(spl)) {
   //   choice = Number (input.question(`Error: Please select a valid scoring option: `));
   // };
-    
   return scoringAlgorithms[choice];
 };
 
@@ -112,10 +111,10 @@ function transform(structure) {
   for (let item in structure){
     let letters = structure[item];
     for (let i = 0; i < letters.length; i++){
-      newObject[letters[i]] = Number (item);
+      newObject[letters[i].toLowerCase()] = Number (item);
       }
   }
-return newObject
+return newObject;
 };
 
 let newPointStructure = transform(oldPointStructure);
@@ -125,8 +124,7 @@ function runProgram() {
   let word1 = initialPrompt();
   let scoreSomething = scorerPrompt().scoringFunction;
   let scoreFinal = scoreSomething(word1);
-   console.log(`Score for '${word1}': ${scoreFinal}`)
-   
+  console.log(`Score for '${word1}': ${scoreFinal}`);
 };
 
 // Don't write any code below this line //
